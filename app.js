@@ -57,7 +57,7 @@ app.get("/todos/:id", async function (request, response) {
 });
 
 app.post("/todos", async (request, response) => {
-  console.log("creating new todo", request.body);
+  // console.log("creating new todo", request.body);
   try {
     // eslint-disable-next-line no-unused-vars
     await Todo.addTodo({
@@ -73,7 +73,7 @@ app.post("/todos", async (request, response) => {
 });
 //PUT https://mytodoapp.com/todos/123/markAscomplete
 app.put("/todos/:id", async (request, response) => {
-  console.log("Mark Todo as completed:", request.params.id);
+  // console.log("Mark Todo as completed:", request.params.id);
   const todo = await Todo.findByPk(request.params.id);
   try {
     const updatedtodo = await todo.setCompletionStatus(request.body.completed);
@@ -84,7 +84,7 @@ app.put("/todos/:id", async (request, response) => {
   }
 });
 app.delete("/todos/:id", async (request, response) => {
-  console.log("delete a todo with ID:", request.params.id);
+  // console.log("delete a todo with ID:", request.params.id);
   try {
     await Todo.remove(request.params.id);
     return response.json({ success: true });
