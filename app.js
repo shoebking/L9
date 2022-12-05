@@ -27,6 +27,15 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+
+
+app.use(flash());
+app.use(function(req, res, next){
+  res.locals.messages = req.flash();
+  next();
+});
+
+
 passport.use(new LocalStrategy({
   usernameField:'email',
   passwordField:'password'
@@ -77,6 +86,8 @@ app.use(cookieParser("shh! some secret string"));
 app.use(csrf("this_should_be_32_character_long", ["POST", "PUT", "DELETE"]));
 
 app.set("view engine", "ejs");
+
+
 
 
 app.get("/", async (request, response) => {
@@ -245,12 +256,6 @@ app.put("/todos/:id",connectEnsureLogin.ensureLoggedIn(), async (request, respon
     console.log(error);
     return response.status(422).json(error);
   }
-});
-
-app.use(flash());
-app.use(function(req, res, next){
-  res.locals.messages = req.flash();
-  next();
 });
 
 app.delete("/todos/:id",connectEnsureLogin.ensureLoggedIn(),async (request, response) => {
