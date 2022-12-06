@@ -61,7 +61,10 @@ passport.use(new LocalStrategy({
     }
   })
   .catch((error) => {
-    return done(err);
+    console.log(error);
+    return done(null, false, {
+      message: "Not Registered",
+    });
   });
 }))
 
