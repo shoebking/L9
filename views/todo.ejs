@@ -54,6 +54,7 @@
        <div class= "grid  grid-cols-6">
         <div class="col-start-3 col-span-2">
         <%- include("header.ejs") %>
+        <div class="text-xl flex items-center">Welcome <%= userName %></div>
         <a href="/signout">Sign Out</a>
         <form action="/todos" method="post">
           <input type="hidden" name="_csrf" value="<%= csrfToken %>">

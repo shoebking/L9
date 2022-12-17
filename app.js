@@ -107,6 +107,9 @@ app.get("/todo",connectEnsureLogin.ensureLoggedIn(),async (request, response) =>
   const dueLater = await Todo.dueLater(loggedinUser);
   const dueToday = await Todo.dueToday(loggedinUser);
   const completedItems = await Todo.completedItems(loggedinUser);
+  const user = await User.findByPk(loggedinUser);
+  const userName = user.dataValues.firstName;
+  console.log(user);
   if (request.accepts("html")) {
     response.render("todo", {
       title: "Todo Application",
@@ -115,10 +118,11 @@ app.get("/todo",connectEnsureLogin.ensureLoggedIn(),async (request, response) =>
       dueLater,
       dueToday,
       completedItems,
+      userName,
       csrfToken: request.csrfToken(),
     });
   } else {
-    response.json(overdue, dueLater, dueToday, completedItems);
+    response.json(overdue, dueLater, dueToday, completedItems,userName);
   }
 });
 
